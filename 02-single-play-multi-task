@@ -1,0 +1,14 @@
+---
+- name: Update app servers
+  hosts: app
+  tasks:
+  - name: Ensure Ansible directory created
+    file:
+     path: /home/ec2-user/Ansible
+     state: directory
+
+  - name: Ensure copy the file to app servers
+    copy:
+     src: /home/ec2-user/Maven.pem
+     dest: /home/ec2-user
+... 
