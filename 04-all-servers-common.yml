@@ -1,0 +1,38 @@
+---
+- name: update app servers with ecomm app
+  hosts: app
+  become: yes
+  
+  tasks:
+  
+  - name: Ensure httpd installed
+    yum:
+     name: httpd
+     state: present
+  
+  - name: Ensure httpd started
+    service:
+     name: httpd
+     state: started
+  
+  - name: Ensure httpd enabled
+    service:
+     name: httpd
+     enabled: yes
+
+  - name: ecomm app deployed
+    git:
+     dest: /var/www/html
+     repo: https://github.com/ravi2krishna/ecomm.git
+
+- name: Ensure food app deployed
+  hosts: db
+  become: yes
+  
+  tasks:
+  
+  - name: Food app deployed
+    git:
+     dest: /var/www/html
+     repo: https://github.com/ravi2krishna/food.git
+...
