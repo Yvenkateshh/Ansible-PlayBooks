@@ -1,0 +1,47 @@
+---
+- name: update db servers
+  hosts: db
+  tasks:
+  
+  - name: Ensure file will be created
+    file:
+     path: /home/ec2-user/practicec
+     state: touch
+  
+  - name: Ensure content needs to be updated
+    copy:
+     dest: /home/ec2-user/practice
+     content: welcome to ansible
+
+- name: update app and db servers
+  hosts: all
+  become: yes
+  
+  tasks:
+  
+  - name: Ensure httpd installed
+    yum:
+     name: httpd
+     state: present
+  
+  - name: Ensure httpd started
+    service:
+     name: httpd
+     state: started
+  
+  - name: Ensure httpd enabled
+    service:
+     name: httpd
+     enabled: yes
+
+- name: Ensure food app deployed
+  hosts: all
+  become: yes
+  
+  tasks:
+  
+  - name: Food app deployed
+    git:
+     dest: /var/www/html
+     repo: https://github.com/ravi2krishna/food.git
+...
