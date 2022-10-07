@@ -1,0 +1,25 @@
+---
+- name: update app servers
+  hosts: app
+  tasks:
+
+  - name: Ensure Ansible2 directory
+    file:
+     path: /home/ec2-user/Ansible2
+     state: directory
+
+  - name: Ensure file downloaded 
+    get_url:
+     dest: /home/ec2-user
+     url: https://filesamples.com/formats/c
+
+- name: update db servers
+  hosts: db
+  tasks:
+
+  - name: Ensure copy the file
+    copy:
+     src: /home/ec2-user/Maven.pem
+     dest: /home/ec2-user
+
+...
