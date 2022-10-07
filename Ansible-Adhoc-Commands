@@ -1,0 +1,50 @@
+ansible --list-hosts all
+ansible all -m ping
+ansible-doc -l
+ansible-doc <module name>
+
+Adhoc Commands:
+============
+
+1.File Module> Creating directory/files
+
+ansible all/app/db -m file -a "path=/home/ec2-user/venkat state=directory"
+ansible all/app/db -m file -a "path=/home/ec2-user/venkat state=absent"
+
+state=absent, directory, touch,link, hard
+
+2. get_url module> Download the files
+
+sudo ansible app -m get_url -a "dest=/home/ec2-user url=https://raw.githubusercontent.
+com/apache/tomcat/main/conf/server.xml"
+
+3. Copy Module
+
+ansible all app -m copy "src=file name dest=/home/ec2-user"
+
+4. yum Module
+
+state= absent, present, latest, removed, installed
+
+ansible all -m yum -a "state=present name=httpd"
+
+5. Command Module
+
+It will run the commands on worker nodes
+
+ansible all -m command -a "systemctl status httpd" -b
+ansible all -m command -a "systemctl start httpd" -b
+
+6. Service Module
+
+ansible all -m service -a "name=httpd state=started" -b
+
+7. Git module
+
+ Deploy the app
+
+ansible all -m git -a "dest=/var/www/html repo=https://github.com/ravi2krishna/ecomm.git" -b"
+
+8. Shell Module
+
+like command module it will accepts the special characters
