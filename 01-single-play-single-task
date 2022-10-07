@@ -1,0 +1,9 @@
+---
+- name: update app servers
+  hosts: app
+  tasks: 
+  - name: Ensure directory created
+    file:
+      path: /home/ec2-user/venky
+      state: directory
+...
